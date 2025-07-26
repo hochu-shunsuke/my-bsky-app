@@ -1,5 +1,8 @@
 import { AtpAgent } from "@atproto/api";
 
+// シングルトンインスタンス
+let agentInstance: AtpAgent | null = null;
+
 // 認証済みエージェントを作成
 const createAuthenticatedAgent = async () => {
   const agent = new AtpAgent({
@@ -20,7 +23,12 @@ const createAuthenticatedAgent = async () => {
   return agent;
 };
 
-// 認証済みエージェントを取得する関数
-export const getAgent = () => createAuthenticatedAgent();
+// 認証済みエージェントを取得する関数（シングルトン）
+export const getAgent = async () => {
+  if (!agentInstance) {
+    agentInstance = await createAuthenticatedAgent();
+  }
+  return agentInstance;
+};
 
 
