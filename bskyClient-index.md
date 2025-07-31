@@ -26,6 +26,7 @@
 ### 1. **AT Protocol コア機能** (`com.atproto.*`)
 
 #### 🔐 **認証・セッション管理**
+
 ```typescript
 agent.com.atproto.server.createSession()     // ログイン
 agent.com.atproto.server.deleteSession()     // ログアウト
@@ -34,6 +35,7 @@ agent.com.atproto.server.createAccount()     // アカウント作成
 ```
 
 #### 💾 **データ操作（低レベル）**
+
 ```typescript
 agent.com.atproto.repo.createRecord()        // レコード作成
 agent.com.atproto.repo.getRecord()           // レコード取得
@@ -42,6 +44,7 @@ agent.com.atproto.repo.uploadBlob()          // ファイルアップロード
 ```
 
 #### 🆔 **アイデンティティ管理**
+
 ```typescript
 agent.com.atproto.identity.resolveHandle()   // ハンドル→DID変換
 agent.com.atproto.identity.updateHandle()    // ハンドル更新
@@ -50,6 +53,7 @@ agent.com.atproto.identity.updateHandle()    // ハンドル更新
 ### 2. **Bluesky アプリケーション機能** (`app.bsky.*`) ⭐️ **メイン**
 
 #### 👤 **ユーザー・プロフィール** (`app.bsky.actor.*`)
+
 ```typescript
 // プロフィール取得・管理
 agent.app.bsky.actor.getProfile()               // プロフィール取得
@@ -69,6 +73,7 @@ agent.app.bsky.actor.status.create()            // ステータス設定
 ```
 
 #### 📝 **投稿・フィード** (`app.bsky.feed.*`)
+
 ```typescript
 // タイムライン・フィード取得
 agent.app.bsky.feed.getTimeline()               // タイムライン取得
@@ -102,6 +107,7 @@ agent.app.bsky.feed.threadgate.create()         // スレッドゲート作成
 ```
 
 #### ❤️ **いいね・リポスト** (`app.bsky.feed.*`)
+
 ```typescript
 // いいね
 agent.app.bsky.feed.like.create()               // いいね作成
@@ -115,6 +121,7 @@ agent.app.bsky.feed.getRepostedBy()             // リポストユーザー一�
 ```
 
 #### 👥 **フォロー・ソーシャルグラフ** (`app.bsky.graph.*`)
+
 ```typescript
 // フォロー関係
 agent.app.bsky.graph.follow.create()            // フォロー
@@ -161,6 +168,7 @@ agent.app.bsky.graph.verification.create()      // 認証作成
 ```
 
 #### 🔔 **通知** (`app.bsky.notification.*`)
+
 ```typescript
 // 通知管理
 agent.app.bsky.notification.listNotifications()        // 通知一覧
@@ -183,6 +191,7 @@ agent.app.bsky.notification.declaration.create()       // 通知宣言作成
 ```
 
 #### 🎨 **埋め込みコンテンツ型定義** (`app.bsky.embed.*`)
+
 ```typescript
 // 注意: これらは型定義であり、実行可能なメソッドではありません
 // 投稿作成時のembedプロパティで使用する型定義です
@@ -204,6 +213,7 @@ AppBskyEmbedVideo.Main                           // 動画埋め込み型
 ```
 
 #### 📝 **リッチテキスト型定義** (`app.bsky.richtext.*`)
+
 ```typescript
 // 注意: これらは型定義であり、実行可能なメソッドではありません
 // 投稿のtextプロパティと併用するfacetsで使用する型定義です
@@ -216,6 +226,7 @@ AppBskyRichtextFacet.Tag                         // ハッシュタグファセ�
 ```
 
 #### 🏷️ **ラベラー・モデレーション** (`app.bsky.labeler.*`)
+
 ```typescript
 // ラベラーサービス
 agent.app.bsky.labeler.getServices()            // ラベラーサービス取得
@@ -223,6 +234,7 @@ agent.app.bsky.labeler.service.create()         // ラベラーサービス作�
 ```
 
 #### 🎥 **動画機能** (`app.bsky.video.*`)
+
 ```typescript
 // 動画アップロード・管理
 agent.app.bsky.video.uploadVideo()              // 動画アップロード
@@ -231,6 +243,7 @@ agent.app.bsky.video.getUploadLimits()          // アップロード制限取�
 ```
 
 ### 3. **チャット機能** (`chat.bsky.*`)
+
 ```typescript
 agent.chat.bsky.convo.sendMessage()          // メッセージ送信
 agent.chat.bsky.convo.listConvos()           // 会話一覧
@@ -238,6 +251,7 @@ agent.chat.bsky.convo.getMessages()          // メッセージ取得
 ```
 
 ### 4. **実験的機能** (`app.bsky.unspecced.*`) 🧪
+
 ```typescript
 // フィード・発見
 agent.app.bsky.unspecced.getPopularFeedGenerators()     // 人気フィードジェネレーター
@@ -282,6 +296,7 @@ agent.app.bsky.unspecced.checkHandleAvailability()      // ハンドル利用可
 ## 🛠️ 実装パターン
 
 ### 1. **シングルトンエージェント** ✅ 現在の実装
+
 ```typescript
 // src/lib/api.ts
 let agentInstance: AtpAgent | null = null;
@@ -295,6 +310,7 @@ export const getAgent = async () => {
 ```
 
 ### 2. **基本的な投稿作成**
+
 ```typescript
 await agent.app.bsky.feed.post.create(
   { repo: agent.session?.did },
@@ -344,7 +360,7 @@ await agent.app.bsky.feed.post.create(
     createdAt: new Date().toISOString(),
   }
 )
-```
+
 ```
 
 ---
@@ -352,6 +368,7 @@ await agent.app.bsky.feed.post.create(
 ## 🎯 クライアント開発で使う主要機能
 
 ### ✅ **必須機能**
+
 - ✅ 認証・ログイン
 - ✅ プロフィール表示
 - ✅ タイムライン表示
@@ -360,6 +377,7 @@ await agent.app.bsky.feed.post.create(
 - ✅ フォロー・フォロワー管理
 
 ### 🔥 **追加したい機能**
+
 - 🔔 通知システム
 - 💬 DM・チャット
 - 🔍 検索機能
@@ -371,7 +389,7 @@ await agent.app.bsky.feed.post.create(
 
 ## 📂 プロジェクト構成
 
-```
+```shell
 my-bsky-app/
 ├── src/
 │   ├── lib/
@@ -388,6 +406,7 @@ my-bsky-app/
 ## 🚀 開発ロードマップ
 
 ### Phase 1: 基本機能 🎯 **現在ここ**
+
 - [x] 認証・エージェント設定
 - [x] プロフィール表示
 - [x] フィード一覧表示
@@ -395,11 +414,13 @@ my-bsky-app/
 - [ ] いいね・リポスト
 
 ### Phase 2: ソーシャル機能
+
 - [ ] フォロー・フォロワー管理
 - [ ] ユーザー検索
 - [ ] 通知システム
 
 ### Phase 3: 高度な機能
+
 - [ ] 画像・動画投稿
 - [ ] DM・チャット
 - [ ] リスト管理
@@ -425,4 +446,4 @@ my-bsky-app/
 
 ---
 
-*Last updated: 2025年7月27日*
+## Last updated: 2025年7月27日
